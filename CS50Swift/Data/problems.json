@@ -1,0 +1,53 @@
+[
+  {
+    "id": "hello",
+    "week": 1,
+    "title": "Hello",
+    "category": "C → Swift",
+    "summary": "Write your first program.",
+    "description": "Write a program that prints hello, world followed by a newline.",
+    "concepts": [
+      "Functions",
+      "Strings",
+      "Console output"
+    ],
+    "hint": "Swift's print function writes text to the console.",
+    "pseudocode": "START\n\nPrint \"hello, world\"\n\nEND",
+    "solution": "print(\"hello, world\")"
+  },
+  {
+    "id": "plurality",
+    "week": 3,
+    "title": "Plurality",
+    "category": "Algorithms",
+    "summary": "Simulate a plurality election.",
+    "description": "Implement a program that determines the winner of a plurality election.",
+    "concepts": [
+      "Arrays",
+      "Loops",
+      "Structs",
+      "Searching"
+    ],
+    "hint": "Keep track of each candidate's vote count. After all votes have been processed, find the candidate with the greatest number of votes.",
+    "pseudocode": "For each vote:\n    Find the selected candidate\n    Increase their vote count\n\nFind the candidate with the most votes\n\nPrint the winner",
+    "solution": "struct Candidate {\n    let name: String\n    var votes: Int\n}\n\nfunc findWinner(_ candidates: [Candidate]) -> String? {\n    guard let first = candidates.first else {\n        return nil\n    }\n\n    var winner = first\n\n    for candidate in candidates.dropFirst() {\n        if candidate.votes > winner.votes {\n            winner = candidate\n        }\n    }\n\n    return winner.name\n}"
+  },
+  {
+    "id": "speller",
+    "week": 5,
+    "title": "Speller",
+    "category": "Data Structures",
+    "summary": "Build a dictionary-based spell checker.",
+    "description": "Load words into an efficient data structure and use it to determine whether words are correctly spelled.",
+    "concepts": [
+      "Dictionaries",
+      "Hashing",
+      "Data Structures",
+      "Complexity"
+    ],
+    "hint": "A Swift Set can provide efficient membership testing.",
+    "pseudocode": "Load dictionary words\n\nFor every word in the text:\n    Check whether the dictionary contains it\n\nReport unknown words",
+    "solution": "let dictionary: Set<String> = [\n    \"hello\",\n    \"world\",\n    \"swift\"\n]\n\nfunc isSpelledCorrectly(_ word: String) -> Bool {\n    dictionary.contains(word.lowercased())\n}"
+  }
+]
+
