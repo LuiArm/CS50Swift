@@ -7,7 +7,9 @@
 
 import Foundation
 
+// Static in-memory data source for course weeks and problems
 enum CourseData {
+    // Predefined course weeks (id, title, subtitle)
     static let weeks: [CourseWeek] = [
         CourseWeek(
                    id: 0,
@@ -41,7 +43,9 @@ enum CourseData {
                )
     ]
     
+    // Sample problems with metadata and learning content
     static let problems: [Problem] = [
+        // Problem: Hello — prints hello world
         Problem(
                    id: "hello",
                    week: 1, title: "Hello",
@@ -74,7 +78,8 @@ enum CourseData {
                    """
                ),
 
-               Problem(
+        // Problem: Plurality — simulate an election
+        Problem(
                    id: "plurality",
                    week: 3, title: "Plurality",
                    category: "Algorithms",
@@ -142,7 +147,8 @@ enum CourseData {
                    """
                ),
 
-               Problem(
+        // Problem: Search — linear search
+        Problem(
                    id: "search",
                    week: 3, title: "Search",
                    category: "Algorithms",
@@ -187,7 +193,8 @@ enum CourseData {
                    """
                ),
 
-               Problem(
+        // Problem: Dictionary — count word frequencies
+        Problem(
                    id: "dictionary",
                    week: 2, title: "Dictionary",
                    category: "Arrays",
@@ -239,7 +246,8 @@ enum CourseData {
                    """
                ),
 
-               Problem(
+        // Problem: Linked List — basic singly linked list
+        Problem(
                    id: "linked-list",
                    week: 5, title: "Linked List",
                    category: "Data Structures",
@@ -298,3 +306,4 @@ enum CourseData {
         
     ]
 }
+

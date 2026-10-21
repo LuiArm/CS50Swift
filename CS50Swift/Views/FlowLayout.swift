@@ -7,11 +7,13 @@
 
 import SwiftUI
 
+// Displays an array of strings as adaptive tag-like chips in a grid
 struct FlowLayout: View {
     let items: [String]
     
     var body: some View {
         
+        // Adaptive grid ensures items wrap to new lines based on available width
         LazyVGrid(
             columns: [
                 GridItem(.adaptive(minimum: 100))
@@ -20,6 +22,7 @@ struct FlowLayout: View {
             spacing: 8
         ) {
             
+            // Render each concept as a styled capsule
             ForEach(items, id: \.self) { item in
                 
                 Text(item)

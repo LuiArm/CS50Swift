@@ -7,9 +7,12 @@
 
 import SwiftUI
 
+// Search screen: query problems by title, summary, category, or concepts
 struct SearchView: View {
+    // Two-way bound to the navigation bar search field
     @State private var searchText = ""
     
+    // Filter problems by matching query across multiple fields
     private var results: [Problem] {
         
         guard !searchText.isEmpty else {
@@ -32,8 +35,10 @@ struct SearchView: View {
     var body: some View {
         NavigationStack {
             
+            // Show different content depending on query and results
             Group {
                 
+                // Initial prompt when no search text is entered
                 if searchText.isEmpty {
                     
                     ContentUnavailableView(
@@ -46,12 +51,14 @@ struct SearchView: View {
                     
                 } else if results.isEmpty {
                     
+                    // System-provided empty state for no results
                     ContentUnavailableView.search(
                         text: searchText
                     )
                     
                 } else {
                     
+                    // Show matching problems; tap to open details
                     List(results) { problem in
                         
                         NavigationLink {
@@ -63,6 +70,7 @@ struct SearchView: View {
                 }
             }
             .navigationTitle("Search")
+            // Adds the search field to the navigation bar
             .searchable(
                 text: $searchText,
                 prompt: "Problems, concepts..."

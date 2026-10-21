@@ -7,15 +7,19 @@
 
 import SwiftUI
 
+// Home screen: greets the user, shows progress, suggests next problem, and lists course weeks.
 struct HomeView: View {
+    // Shared progress state injected from the app entry point
     @EnvironmentObject var progress: ProgressStore
     
+    // Compute the first problem the user hasn't completed yet
     private var nextProblem: Problem? {
         CourseData.problems.first {
             !progress.isCompleted($0)
         }
     }
     var body: some View {
+        // Navigation container to enable links to other screens
         NavigationStack {
             ScrollView {
                 VStack(alignment: .leading, spacing: 24) {
@@ -35,6 +39,7 @@ struct HomeView: View {
         .navigationTitle("CS50 Swift")
     }
     
+    // Welcome header with course intro
     private var header: some View {
         VStack(alignment: .leading, spacing: 12) {
             Text("Welcome to CS50 Swift!")
@@ -47,6 +52,7 @@ struct HomeView: View {
         }
     }
     
+    // Shows completion percentage and a progress bar
     private var progressCard: some View {
         VStack(alignment: .leading, spacing: 12) {
             HStack {
@@ -60,7 +66,7 @@ struct HomeView: View {
                     .foregroundStyle(.red)
             }
             
-            
+            // Visual indicator of overall progress
             ProgressView(value: progress.completionPercentage)
                 .tint(.red)
             
@@ -75,7 +81,9 @@ struct HomeView: View {
         )
     }
     
+    // Card prompting the user to continue with the next incomplete problem
     private func continueCard(_ problem: Problem) -> some View {
+        // Tapping opens the selected problem's detail
         NavigationLink {
             ProblemsDetailView(problem: problem)
         } label: {
@@ -117,6 +125,7 @@ struct HomeView: View {
         .buttonStyle(.plain)
     }
     
+    // Lists course weeks; tapping navigates to filtered ProblemsView
     private var weeksSection: some View {
         VStack(alignment: .leading, spacing: 12) {
             
@@ -124,6 +133,7 @@ struct HomeView: View {
                 .font(.title3)
                 .fontWeight(.bold)
             
+            // Iterate through predefined course weeks
             ForEach(CourseData.weeks) { week in
                 
                 NavigationLink {

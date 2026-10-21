@@ -7,15 +7,20 @@
 
 import SwiftUI
 
+// Problem detail screen: full description, concepts, hint, pseudocode, solution, and actions
 struct ProblemsDetailView: View {
     
+    // Access shared progress (completed/favorites)
     @EnvironmentObject var progress: ProgressStore
     
+    // The problem being displayed
     let problem: Problem
     
+    // Controls whether the solution code is revealed
     @State private var showSolution = false
     
     var body: some View {
+        // Scroll to accommodate long problem content
         ScrollView {
             
             VStack(alignment: .leading, spacing: 24) {
@@ -42,6 +47,7 @@ struct ProblemsDetailView: View {
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             
+            // Star icon reflects favorite status; action currently toggles completion (likely intended to toggle favorite)
             ToolbarItem(placement: .topBarTrailing) {
                 Button {
                     progress.toggleCompleted(problem)
@@ -57,6 +63,7 @@ struct ProblemsDetailView: View {
         }
     }
     
+    // Title, week label, and summary
     private var header: some View {
         VStack(alignment: .leading, spacing: 10) {
             
@@ -75,6 +82,7 @@ struct ProblemsDetailView: View {
         }
     }
     
+    // Detailed problem statement
     private var problemSection: some View {
         VStack(alignment: .leading, spacing: 10) {
             
@@ -86,6 +94,7 @@ struct ProblemsDetailView: View {
         }
     }
     
+    // Key concepts shown as tags
     private var conceptsSection: some View {
         VStack(alignment: .leading, spacing: 12) {
             
@@ -95,6 +104,7 @@ struct ProblemsDetailView: View {
         }
     }
     
+    // Optional hint inside a disclosure group
     private var hintSection: some View {
         DisclosureGroup("Hint") {
             
@@ -105,6 +115,7 @@ struct ProblemsDetailView: View {
         }
     }
     
+    // Pseudocode rendered in a code block
     private var pseudocodeSection: some View {
         DisclosureGroup("Pseudocode") {
             
@@ -113,6 +124,7 @@ struct ProblemsDetailView: View {
         }
     }
     
+    // Swift solution with a reveal/hide toggle
     private var solutionSection: some View {
         VStack(alignment: .leading, spacing: 12) {
             
@@ -128,6 +140,7 @@ struct ProblemsDetailView: View {
                 }
             }
             
+            // Reveal the solution code when toggled
             if showSolution {
                 CodeBlock(code: problem.solution)
                     .transition(.opacity)
@@ -154,7 +167,9 @@ struct ProblemsDetailView: View {
         }
     }
     
+    // Button to mark/unmark completion
     private var completeButton: some View {
+        // Toggle completion state in the progress store
         Button {
             progress.toggleCompleted(problem)
         } label: {

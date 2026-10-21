@@ -7,7 +7,9 @@
 
 import SwiftUI
 
+// Reusable row showing a problem title, summary, and status icons
 struct ProblemRow: View {
+    // Read completion/favorite status from the shared store
     @EnvironmentObject var progress: ProgressStore
 
      let problem: Problem
@@ -15,6 +17,7 @@ struct ProblemRow: View {
      var body: some View {
          HStack(spacing: 14) {
 
+             // Completed vs. incomplete icon
              Image(
                  systemName: progress.isCompleted(problem)
                      ? "checkmark.circle.fill"
@@ -40,6 +43,7 @@ struct ProblemRow: View {
 
              Spacer()
 
+             // Show star for favorite problems
              if progress.isFavorite(problem) {
                  Image(systemName: "star.fill")
                      .foregroundStyle(.yellow)

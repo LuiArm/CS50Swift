@@ -8,31 +8,34 @@
 import Foundation
 import Combine
 
+// Central app state for tracking completed and favorite problems; persists via UserDefaults
 final class ProgressStore: ObservableObject {
     
-    // Set of problems that user has completed
+    // IDs of problems the user has completed
     @Published private(set) var completed: Set<String> = []
-    // Set of problems that user has favorited
+    // IDs of problems the user has favorited
     @Published private(set) var favorites: Set<String> = []
     
+    // UserDefaults keys
     private let completedKey = "completedProblems"
     private let favoritesKey = "favoriteProblems"
     
+    // Load persisted progress on startup
     init() {
         load()
     }
     
-    // check if problem is in the completed set
+    // Check if a problem is completed
     func isCompleted(_ problem: Problem) -> Bool {
         completed.contains(problem.id)
     }
     
-    // check if problem is in the favorite set
+    // Check if a problem is favorited
     func isFavorite(_ problem: Problem) -> Bool {
         favorites.contains(problem.id)
     }
     
-    // toggles a problems completion status
+    // Toggle completion state and persist
     // if already completed, remove it
     // if not insert it
     func toggleCompleted(_ problem: Problem) {
@@ -44,19 +47,20 @@ final class ProgressStore: ObservableObject {
         save()
     }
     
-    // return the fraction of the completed problems over the total number of problems
+    // Fraction of completed problems across the entire course
     var completionPercentage: Double {
         guard !CourseData.problems.isEmpty else { return 0 }
         
         return Double(completed.count) / Double(CourseData.problems.count)
     }
     
+    // Persist sets as arrays in UserDefaults
     private func save() {
         UserDefaults.standard.set(Array(completed), forKey: completedKey)
         UserDefaults.standard.set(Array(favorites), forKey: favoritesKey)
     }
     
-    // loads persisted arrays from UserDefaults and converts back to sets
+    // Restore sets from arrays stored in UserDefaults
     private func load() {
         if let savedCompleted = UserDefaults.standard.array(forKey: completedKey) as? [String] {
             completed = Set(savedCompleted)
@@ -67,3 +71,4 @@ final class ProgressStore: ObservableObject {
         }
     }
 }
+
